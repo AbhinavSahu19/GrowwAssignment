@@ -1,4 +1,4 @@
-package com.example.growwassignment
+package com.example.stocksapp
 
 import org.junit.Test
 

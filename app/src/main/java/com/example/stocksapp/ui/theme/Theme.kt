@@ -1,4 +1,4 @@
-package com.example.growwassignment.ui.theme
+package com.example.stocksapp.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -50,7 +50,7 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 @Composable
-fun GrowwAssignmentTheme(
+fun StockAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false,

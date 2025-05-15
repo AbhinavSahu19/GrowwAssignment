@@ -1,9 +1,8 @@
-package com.example.growwassignment.responsedto.graph.daily
+package com.example.stocksapp.responsedto.graph.weekly
 
 import com.google.gson.annotations.SerializedName
 
-
-data class DailyTimeSeriesMetaData(
+data class WeeklyTimeSeriesMetaData(
     @SerializedName("1. Information")
     val information: String,
 
@@ -12,9 +11,6 @@ data class DailyTimeSeriesMetaData(
 
     @SerializedName("3. Last Refreshed")
     val lastRefreshed: String,
-
-    @SerializedName("4. Output Size")
-    val outputSize: String,
 
     @SerializedName("5. Time Zone")
     val timeZone: String

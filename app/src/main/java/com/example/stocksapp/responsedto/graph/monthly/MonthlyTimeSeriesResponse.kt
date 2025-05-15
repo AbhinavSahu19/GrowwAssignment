@@ -1,6 +1,6 @@
-package com.example.growwassignment.responsedto.graph.monthly
+package com.example.stocksapp.responsedto.graph.monthly
 
-import com.example.growwassignment.responsedto.graph.StockGraphDataItem
+import com.example.stocksapp.responsedto.graph.StockGraphDataItem
 import com.google.gson.annotations.SerializedName
 
 data class MonthlyTimeSeriesResponse (

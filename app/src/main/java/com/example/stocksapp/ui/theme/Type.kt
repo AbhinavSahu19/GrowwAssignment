@@ -1,4 +1,4 @@
-package com.example.growwassignment.ui.theme
+package com.example.stocksapp.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

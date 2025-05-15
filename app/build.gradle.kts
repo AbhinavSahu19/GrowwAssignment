@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.growwassignment"
+    namespace = "com.example.stocksapp"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.growwassignment"
+        applicationId = "com.example.stocksapp"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
