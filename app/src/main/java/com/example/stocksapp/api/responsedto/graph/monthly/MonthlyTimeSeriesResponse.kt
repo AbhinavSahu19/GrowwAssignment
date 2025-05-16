@@ -7,6 +7,6 @@ data class MonthlyTimeSeriesResponse (
     @SerializedName("Meta Data" )
     var metaData   : MonthlyTimeSeriesMetaData,
     @SerializedName("Monthly Time Series" )
-    val timeSeriesWeekly: Map<String, StockGraphDataItem>
+    val timeSeriesMonthly: Map<String, StockGraphDataItem>
 )
 
