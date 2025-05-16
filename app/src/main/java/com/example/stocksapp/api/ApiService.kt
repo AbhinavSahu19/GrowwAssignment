@@ -1,11 +1,11 @@
 package com.example.stocksapp.api
 
-import com.example.stocksapp.responsedto.CompanyOverview
-import com.example.stocksapp.responsedto.TopGainersLosersResponse
-import com.example.stocksapp.responsedto.graph.daily.DailyTimeSeriesResponse
-import com.example.stocksapp.responsedto.graph.monthly.MonthlyTimeSeriesResponse
-import com.example.stocksapp.responsedto.graph.weekly.WeeklyTimeSeriesResponse
-import com.example.stocksapp.responsedto.search.SearchResponse
+import com.example.stocksapp.api.responsedto.CompanyOverview
+import com.example.stocksapp.api.responsedto.TopGainersLosersResponse
+import com.example.stocksapp.api.responsedto.graph.daily.DailyTimeSeriesResponse
+import com.example.stocksapp.api.responsedto.graph.monthly.MonthlyTimeSeriesResponse
+import com.example.stocksapp.api.responsedto.graph.weekly.WeeklyTimeSeriesResponse
+import com.example.stocksapp.api.responsedto.search.SearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

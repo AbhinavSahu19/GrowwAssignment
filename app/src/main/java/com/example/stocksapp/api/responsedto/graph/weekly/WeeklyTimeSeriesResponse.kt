@@ -1,6 +1,6 @@
-package com.example.stocksapp.responsedto.graph.weekly
+package com.example.stocksapp.api.responsedto.graph.weekly
 
-import com.example.stocksapp.responsedto.graph.StockGraphDataItem
+import com.example.stocksapp.api.responsedto.graph.StockGraphDataItem
 import com.google.gson.annotations.SerializedName
 
 data class WeeklyTimeSeriesResponse (

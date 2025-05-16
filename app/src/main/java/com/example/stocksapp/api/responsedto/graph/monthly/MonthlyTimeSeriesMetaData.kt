@@ -1,8 +1,8 @@
-package com.example.stocksapp.responsedto.graph.weekly
+package com.example.stocksapp.api.responsedto.graph.monthly
 
 import com.google.gson.annotations.SerializedName
 
-data class WeeklyTimeSeriesMetaData(
+data class MonthlyTimeSeriesMetaData(
     @SerializedName("1. Information")
     val information: String,
 

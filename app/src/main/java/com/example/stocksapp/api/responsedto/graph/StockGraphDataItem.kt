@@ -1,4 +1,4 @@
-package com.example.stocksapp.responsedto.graph
+package com.example.stocksapp.api.responsedto.graph
 
 import com.google.gson.annotations.SerializedName
 
