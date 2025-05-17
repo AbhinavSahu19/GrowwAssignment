@@ -1,6 +1,5 @@
 package com.example.stocksapp.repository
 
-import android.util.Log
 import com.example.stocksapp.api.ApiService
 import com.example.stocksapp.api.responsedto.graph.StockGraphDataItem
 import com.example.stocksapp.api.responsedto.search.SearchResponseItem
@@ -160,14 +159,11 @@ class RepositoryImpl @Inject constructor(
             emit(ResponseModel.Loading)
 
             try {
-                Log.d("StockAppRepo", "getCompanyOverview")
                 val dbResponse = db.companyOverviewDao.getBySymbol(symbol)
                 if (dbResponse != null) {
-                    Log.d("StockAppRepo", "getCompanyOverview db")
                     val screenData = dbResponse.toScreenData()
                     emit(ResponseModel.Success(screenData))
                 } else {
-                    Log.d("StockAppRepo", "getCompanyOverview api")
 
                     val apiResponse = api.getCompanyOverview(symbol = symbol)
                     val graphResponse = api.getDailyTimeSeries(symbol = symbol)
@@ -187,14 +183,13 @@ class RepositoryImpl @Inject constructor(
             emit(ResponseModel.Loading)
 
             try {
-                Log.d("StockAppRepo", "reloadCompanyOverview")
                 val apiResponse = api.getCompanyOverview(symbol = symbol)
                 val graphResponse = api.getDailyTimeSeries(symbol = symbol)
                 val mapJson = MapConverter.fromMap(graphResponse.timeSeriesDaily);
                 val entity: CompanyOverviewEntity = apiResponse.toEntity(mapJson)
 
                 db.companyOverviewDao.insert(entity)
-                Log.d("StockAppRepo", "reloadCompanyOverview inserted")
+
                 emit(ResponseModel.Success(entity.toScreenData()))
             } catch (e: Exception) {
                 emit(ResponseModel.Error(e.message ?: "Something went wrong"))

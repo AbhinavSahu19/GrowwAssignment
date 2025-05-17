@@ -1,6 +1,5 @@
 package com.example.stocksapp.presentation.viewall
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -45,7 +44,6 @@ class ViewAllViewModel @Inject constructor(
     val recentSearches: StateFlow<List<SearchKeywordEntity>?> = _recentSearches
 
     init {
-        Log.d("StockApp", type.toString())
         getData()
     }
 

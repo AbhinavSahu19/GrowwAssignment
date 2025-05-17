@@ -1,6 +1,5 @@
 package com.example.stocksapp.presentation.viewall
 
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -52,12 +51,7 @@ fun ViewAllScreen(
     BackHandler {
         navigateBack()
     }
-    LaunchedEffect(Unit) {
-        Log.d("StockApp", type.toString())
-        Log.d("StockApp", topGainers.toString())
-        Log.d("StockApp", topLosers.toString())
-        Log.d("StockApp", activelyTraded.toString())
-    }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
