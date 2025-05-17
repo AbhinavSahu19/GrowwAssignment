@@ -16,15 +16,17 @@ fun LoadingAnimation(
     modifier: Modifier
 ){
     Column (
-        modifier = modifier,
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.surface),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ){
         CircularProgressIndicator(
-            modifier = Modifier.background(MaterialTheme.colorScheme.surface)
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.surface)
                 .padding(10.dp),
             color = MaterialTheme.colorScheme.primary,
-            trackColor = MaterialTheme.colorScheme.outline,
+            trackColor = MaterialTheme.colorScheme.primaryContainer,
         )
     }
 }

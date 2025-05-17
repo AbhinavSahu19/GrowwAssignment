@@ -117,6 +117,9 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     implementation("io.github.yashctn88:candlechartkmm:4.0.0")
+
+    implementation ("com.google.accompanist:accompanist-navigation-animation:0.34.0")
+
 }
 
 kapt {

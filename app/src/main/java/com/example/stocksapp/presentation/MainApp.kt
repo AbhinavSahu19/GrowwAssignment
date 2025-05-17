@@ -1,9 +1,15 @@
 package com.example.stocksapp.presentation
 
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
@@ -11,12 +17,14 @@ import com.example.stocksapp.presentation.details.DetailsScreen
 import com.example.stocksapp.presentation.explore.ExploreScreen
 import com.example.stocksapp.presentation.search.SearchScreen
 import com.example.stocksapp.presentation.viewall.ViewAllScreen
+import com.google.accompanist.navigation.animation.AnimatedNavHost
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MainApp(
     navController: NavHostController = rememberNavController()
 ) {
-    NavHost(
+    AnimatedNavHost(
         navController,
         startDestination = Screen.Explore.route,
     ) {
@@ -33,7 +41,21 @@ fun MainApp(
                 },
             )
         }
-        composable(Screen.Search.route) {
+        composable(
+            Screen.Search.route,
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { it },
+                    animationSpec = tween(durationMillis = 700, easing = FastOutSlowInEasing)
+                ) + fadeIn(animationSpec = tween(700))
+            },
+            exitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -it },
+                    animationSpec = tween(durationMillis = 600, easing = FastOutSlowInEasing)
+                ) + fadeOut(animationSpec = tween(600))
+            }
+        ) {
             SearchScreen(
                 navigateToStockDetails = { symbol ->
                     navController.navigate(Screen.StockDetail.createRoute(symbol))

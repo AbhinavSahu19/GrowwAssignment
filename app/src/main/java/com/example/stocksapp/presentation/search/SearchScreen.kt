@@ -102,7 +102,7 @@ fun SearchScreen(
                 })
             LazyColumn {
                 if (dbKeywords.isNotEmpty()) {
-                    items(Math.min(5, dbKeywords.size)) { idx ->
+                    items(dbKeywords.size) { idx ->
                         val item = dbKeywords[idx]
                         SearchKeyword(
                             item.symbol,
@@ -124,7 +124,9 @@ fun SearchScreen(
                         item {
                             ErrorScreen(
                                 msg = (apiKeywords as ResponseModel.Error).errorMsg,
-                                modifier = Modifier.weight(1f)
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .background(MaterialTheme.colorScheme.surface)
                             )
                         }
                     }
@@ -148,7 +150,9 @@ fun SearchScreen(
                             item {
                                 ErrorScreen(
                                     msg = stringResource(id = R.string.no_response),
-                                    modifier = Modifier.weight(1f)
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .background(MaterialTheme.colorScheme.surface)
                                 )
                             }
                         } else {
@@ -219,7 +223,7 @@ fun SearchBar(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
-        singleLine = true
+        singleLine = true,
     )
 }
 
@@ -275,6 +279,15 @@ fun SearchKeyword(
     }
 }
 
+@Preview
+@Composable
+fun SearchBarPre(){
+    SearchBar(
+        TextFieldValue(),
+        FocusRequester.Default,
+        {}
+    )
+}
 @Preview
 @Composable
 fun SearchKeywordPre() {

@@ -33,7 +33,7 @@ fun HeadingDisplay(
     ) {
         Text(
             text = text,
-            fontSize = 22.sp,
+            fontSize = 20.sp,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurface
         )

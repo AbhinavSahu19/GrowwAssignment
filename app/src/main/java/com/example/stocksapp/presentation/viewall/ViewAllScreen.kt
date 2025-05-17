@@ -81,6 +81,7 @@ fun ViewAllScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .weight(1f)
+                                    .background(MaterialTheme.colorScheme.surface)
                             )
                         }
 
@@ -121,6 +122,7 @@ fun ViewAllScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .weight(1f)
+                                    .background(MaterialTheme.colorScheme.surface)
                             )
                         }
                     }
@@ -177,6 +179,7 @@ fun ViewAllScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .weight(1f)
+                                    .background(MaterialTheme.colorScheme.surface)
                             )
                         }
                     }
@@ -233,6 +236,7 @@ fun ViewAllScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .weight(1f)
+                                    .background(MaterialTheme.colorScheme.surface)
                             )
                         }
                     }
