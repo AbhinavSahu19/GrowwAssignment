@@ -1,5 +1,6 @@
 package com.example.stocksapp.api.responsedto.search
 
+import com.example.stocksapp.db.entity.SearchKeywordEntity
 import com.google.gson.annotations.SerializedName
 
 data class SearchResponseItem(
@@ -23,4 +24,18 @@ data class SearchResponseItem(
     @SerializedName("9. matchScore")
     var matchScore: String
 
-)
+) {
+    fun toEntity(): SearchKeywordEntity {
+        return SearchKeywordEntity(
+            symbol,
+            name,
+            type,
+            region,
+            marketOpen,
+            marketClose,
+            timezone,
+            currency,
+            matchScore
+        )
+    }
+}

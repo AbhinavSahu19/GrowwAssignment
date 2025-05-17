@@ -1,5 +1,6 @@
 package com.example.stocksapp.api.responsedto
 
+import com.example.stocksapp.db.entity.CompanyOverviewEntity
 import com.google.gson.annotations.SerializedName
 
 
@@ -108,4 +109,63 @@ data class CompanyOverview(
     var dividendDate: String,
     @SerializedName("ExDividendDate")
     var exDividendDate: String
-)
+) {
+    fun toEntity(dailyGraph: String): CompanyOverviewEntity {
+        return CompanyOverviewEntity(
+            symbol,
+            assetType,
+            name,
+            description,
+            cik,
+            exchange,
+            currency,
+            country,
+            sector,
+            industry,
+            address,
+            officialSite,
+            fiscalYearEnd,
+            latestQuarter,
+            marketCapitalization,
+            ebitda,
+            PERatio,
+            PEGRatio,
+            bookValue,
+            dividendPerShare,
+            dividendYield,
+            eps,
+            revenuePerShareTTM,
+            profitMargin,
+            operatingMarginTTM,
+            returnOnAssetsTTM,
+            returnOnEquityTTM,
+            revenueTTM,
+            grossProfitTTM,
+            dilutedEPSTTM,
+            quarterlyEarningsGrowthYOY,
+            quarterlyRevenueGrowthYOY,
+            analystTargetPrice,
+            analystRatingStrongBuy,
+            analystRatingBuy,
+            analystRatingHold,
+            analystRatingSell,
+            analystRatingStrongSell,
+            trailingPE,
+            forwardPE,
+            priceToSalesRatioTTM,
+            priceToBookRatio,
+            EVToRevenue,
+            EVToEBITDA,
+            beta,
+            weekHigh52,
+            weekLow52,
+            dayMovingAverage50,
+            dayMovingAverage200,
+            sharesOutstanding,
+            dividendDate,
+            exDividendDate,
+
+            dailyGraph
+        )
+    }
+}
