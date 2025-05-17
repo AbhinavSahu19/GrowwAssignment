@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Stocks App</string>
+
+    <string name="recent_search">Recent Searches</string>
+    <string name="view_all">View All</string>
+
+    <string name="top_gainers">Top Gainers</string>
+    <string name="top_losers">Top Losers</string>
+    <string name="actively_traded">Actively Traded</string>
+
+    <string name="search_here">Search Here…</string>
+
+    <string name="no_response">No Response</string>
+    <string name="stock_detail">Stock Detail</string>
 </resources>

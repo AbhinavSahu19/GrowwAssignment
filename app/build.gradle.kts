@@ -113,6 +113,10 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.51")
     kapt("com.google.dagger:hilt-android-compiler:2.51")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
+    implementation("io.github.yashctn88:candlechartkmm:4.0.0")
 }
 
 kapt {
