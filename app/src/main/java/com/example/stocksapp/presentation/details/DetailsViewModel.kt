@@ -25,6 +25,10 @@ class DetailsViewModel @Inject constructor(
     val symbol: String =
         checkNotNull(savedStateHandle["symbol"])
 
+    private val _isRefreshing =
+        MutableStateFlow<Boolean>(false)
+    val isRefreshing: StateFlow<Boolean> = _isRefreshing
+
     private val _companyOverview =
         MutableStateFlow<ResponseModel<CompanyOverviewScreenData>>(ResponseModel.Loading)
     val companyOverview: StateFlow<ResponseModel<CompanyOverviewScreenData>> = _companyOverview
@@ -42,6 +46,7 @@ class DetailsViewModel @Inject constructor(
     }
 
     fun getCompanyOverview() {
+        _isRefreshing.value = true
         viewModelScope.launch(Dispatchers.IO) {
             repository.getCompanyOverview(symbol).collectLatest {
                 _companyOverview.value = it
@@ -52,6 +57,22 @@ class DetailsViewModel @Inject constructor(
                 }
             }
         }
+        _isRefreshing.value = false
+    }
+
+    fun reloadCompanyOverview() {
+        _isRefreshing.value = true
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.reloadCompanyOverview(symbol).collectLatest {
+                _companyOverview.value = it
+                if (_companyOverview.value is ResponseModel.Success<CompanyOverviewScreenData>) {
+                    makeGraphList(
+                        (it as ResponseModel.Success<CompanyOverviewScreenData>).data.dailyGraphData
+                    )
+                }
+            }
+        }
+        _isRefreshing.value = false
     }
 
     @SuppressLint("NewApi")

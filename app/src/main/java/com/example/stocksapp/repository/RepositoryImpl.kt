@@ -1,5 +1,6 @@
 package com.example.stocksapp.repository
 
+import android.util.Log
 import com.example.stocksapp.api.ApiService
 import com.example.stocksapp.api.responsedto.graph.StockGraphDataItem
 import com.example.stocksapp.api.responsedto.search.SearchResponseItem
@@ -12,9 +13,12 @@ import com.example.stocksapp.db.entity.TopGainerEntity
 import com.example.stocksapp.db.entity.TopLooserEntity
 import com.example.stocksapp.presentation.details.CompanyOverviewScreenData
 import com.example.stocksapp.presentation.explore.ExploreScreenData
+import com.example.stocksapp.utils.EXPLORE_SCREEN_LAST_REFRESHED
 import com.example.stocksapp.utils.ResponseModel
+import com.example.stocksapp.utils.getSharedPref
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
@@ -30,7 +34,13 @@ class RepositoryImpl @Inject constructor(
 
         try {
             val dbTopGainers = db.topGainerDao.get6()
-            if (dbTopGainers.isEmpty()) {
+            val lastRefreshedTime = getSharedPref().getLong(EXPLORE_SCREEN_LAST_REFRESHED, 0L)
+            val isOld = lastRefreshedTime == 0L ||
+                    TimeUnit.MILLISECONDS.toDays(lastRefreshedTime) > TimeUnit.MILLISECONDS.toDays(
+                System.currentTimeMillis()
+            )
+
+            if (dbTopGainers.isEmpty() || isOld) {
                 val response = api.getTopGainersLosers()
                 val topGainers = response.topGainers.map { it.toTopGainer() }
                 val topLosers = response.topLosers.map { it.toTopLooser() }
@@ -39,6 +49,8 @@ class RepositoryImpl @Inject constructor(
                 db.topLooserDao.insertAll(topLosers)
                 db.activelyTradedDao.insertAll(activeTraded)
 
+                getSharedPref().edit()
+                    .putLong(EXPLORE_SCREEN_LAST_REFRESHED, System.currentTimeMillis()).apply()
                 emit(
                     ResponseModel.Success(
                         ExploreScreenData(
@@ -148,12 +160,15 @@ class RepositoryImpl @Inject constructor(
             emit(ResponseModel.Loading)
 
             try {
+                Log.d("StockAppRepo", "getCompanyOverview")
                 val dbResponse = db.companyOverviewDao.getBySymbol(symbol)
                 if (dbResponse != null) {
+                    Log.d("StockAppRepo", "getCompanyOverview db")
                     val screenData = dbResponse.toScreenData()
                     emit(ResponseModel.Success(screenData))
-                }
-                else {
+                } else {
+                    Log.d("StockAppRepo", "getCompanyOverview api")
+
                     val apiResponse = api.getCompanyOverview(symbol = symbol)
                     val graphResponse = api.getDailyTimeSeries(symbol = symbol)
                     val mapJson = MapConverter.fromMap(graphResponse.timeSeriesDaily);
@@ -162,6 +177,25 @@ class RepositoryImpl @Inject constructor(
                     db.companyOverviewDao.insert(entity)
                     emit(ResponseModel.Success(entity.toScreenData()))
                 }
+            } catch (e: Exception) {
+                emit(ResponseModel.Error(e.message ?: "Something went wrong"))
+            }
+        }
+
+    override fun reloadCompanyOverview(symbol: String): Flow<ResponseModel<CompanyOverviewScreenData>> =
+        flow {
+            emit(ResponseModel.Loading)
+
+            try {
+                Log.d("StockAppRepo", "reloadCompanyOverview")
+                val apiResponse = api.getCompanyOverview(symbol = symbol)
+                val graphResponse = api.getDailyTimeSeries(symbol = symbol)
+                val mapJson = MapConverter.fromMap(graphResponse.timeSeriesDaily);
+                val entity: CompanyOverviewEntity = apiResponse.toEntity(mapJson)
+
+                db.companyOverviewDao.insert(entity)
+                Log.d("StockAppRepo", "reloadCompanyOverview inserted")
+                emit(ResponseModel.Success(entity.toScreenData()))
             } catch (e: Exception) {
                 emit(ResponseModel.Error(e.message ?: "Something went wrong"))
             }

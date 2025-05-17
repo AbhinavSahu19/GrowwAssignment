@@ -1,11 +1,17 @@
 package com.example.stocksapp.presentation.details
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -13,12 +19,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.stocksapp.R
 import com.example.stocksapp.presentation.common.ErrorScreen
@@ -26,6 +34,7 @@ import com.example.stocksapp.presentation.common.LoadingAnimation
 import com.example.stocksapp.presentation.viewall.Heading
 import com.example.stocksapp.utils.ResponseModel
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun DetailsScreen(
     viewModel: DetailsViewModel = hiltViewModel(),
@@ -34,6 +43,13 @@ fun DetailsScreen(
     val companyOverviewResponse by viewModel.companyOverview.collectAsState()
     val graphData by viewModel.graphList.collectAsState()
     val graphDuration by viewModel.graphDurationEnum.collectAsState()
+    val isRefreshing by viewModel.isRefreshing.collectAsState()
+
+    BackHandler {
+        navigateBack()
+    }
+    val pullRefreshState =
+        rememberPullRefreshState(isRefreshing, { viewModel.reloadCompanyOverview() })
 
     Scaffold(
         modifier = Modifier
@@ -46,6 +62,7 @@ fun DetailsScreen(
                     msg = (companyOverviewResponse as ResponseModel.Error).errorMsg,
                     modifier = Modifier
                         .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.surface)
                         .padding(paddingValues)
                 )
             }
@@ -70,44 +87,58 @@ fun DetailsScreen(
                 ) {
                     Heading(text = stringResource(id = R.string.stock_detail))
                     HorizontalDivider()
-                    LazyColumn(
+                    Box(
                         modifier = Modifier
-                            .fillMaxWidth()
+                            .fillMaxSize()
+                            .pullRefresh(pullRefreshState)
                             .background(MaterialTheme.colorScheme.surface),
                     ) {
-                        item {
-                            DetailHeading(
-                                overview.symbol,
-                                overview.name,
-                                overview.assetType,
-                                overview.exchange
-                            )
-                        }
-                        item {
-                            DetailScreenGraph(
-                                graphDuration,
-                                graphData,
-                                viewModel::filterGraph
-                            )
-                        }
-                        item {
-                            DetailsBody(
-                                overview.symbol,
-                                overview.description,
-                                overview.country,
-                                overview.currency,
-                                overview.sector,
-                                overview.industry,
-                                overview.marketCapitalization,
-                                overview.dividendYield,
-                                overview.profitMargin,
-                                overview.beta,
-                                overview.weekHigh52,
-                                overview.weekLow52,
-                                overview.dayMovingAverage50,
-                                overview.dayMovingAverage200,
-                                overview.sharesOutstanding,
-                            )
+                        PullRefreshIndicator(
+                            refreshing = isRefreshing,
+                            state = pullRefreshState,
+                            modifier = Modifier
+                                .zIndex(1f)
+                                .align(Alignment.TopCenter)
+                        )
+                        LazyColumn(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.colorScheme.surface),
+                        ) {
+                            item {
+                                DetailHeading(
+                                    overview.symbol,
+                                    overview.name,
+                                    overview.assetType,
+                                    overview.exchange
+                                )
+                            }
+                            item {
+                                DetailScreenGraph(
+                                    graphDuration,
+                                    graphData,
+                                    viewModel::filterGraph
+                                )
+                            }
+                            item {
+                                DetailsBody(
+                                    overview.symbol,
+                                    overview.description,
+                                    overview.country,
+                                    overview.currency,
+                                    overview.sector,
+                                    overview.industry,
+                                    overview.marketCapitalization,
+                                    overview.dividendYield,
+                                    overview.profitMargin,
+                                    overview.beta,
+                                    overview.weekHigh52,
+                                    overview.weekLow52,
+                                    overview.dayMovingAverage50,
+                                    overview.dayMovingAverage200,
+                                    overview.sharesOutstanding,
+                                )
+                            }
                         }
                     }
                 }

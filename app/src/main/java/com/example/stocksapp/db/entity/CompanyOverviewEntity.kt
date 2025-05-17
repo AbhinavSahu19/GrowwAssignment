@@ -2,13 +2,11 @@ package com.example.stocksapp.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
 import com.example.stocksapp.db.MapConverter
 import com.example.stocksapp.presentation.details.CompanyOverviewScreenData
 
 
 @Entity("company_overview")
-@TypeConverters(MapConverter::class)
 data class CompanyOverviewEntity(
     @PrimaryKey(autoGenerate = false)
     var symbol: String,

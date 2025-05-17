@@ -26,6 +26,8 @@ interface Repository {
 
     fun getCompanyOverview(symbol: String): Flow<ResponseModel<CompanyOverviewScreenData>>
 
+    fun reloadCompanyOverview(symbol: String): Flow<ResponseModel<CompanyOverviewScreenData>>
+
     fun getCompanyDailyGraph(symbol: String): Flow<ResponseModel<Map<String, StockGraphDataItem>>>
 
     fun getCompanyWeeklyGraph(symbol: String): Flow<ResponseModel<Map<String, StockGraphDataItem>>>
