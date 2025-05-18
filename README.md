@@ -53,9 +53,6 @@ com.example.stocksapp/
 Add Api key in local properties as -
 API_KEY="key"
 
-### Screenshots
-![](assets/Stock App demo 2.jpg) | ![](assets/Stock App demo 5.jpg) 
+### Screenshots and demo
+Screenshots and demo video are added to asset folder of repository. Kindly go through it.
 
-
-### Demo Video
-![](assets/Stock App demo 7.mp4)
