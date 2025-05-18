@@ -12,4 +12,7 @@
 
     <string name="no_response">No Response</string>
     <string name="stock_detail">Stock Detail</string>
+
+    <string name="no_data">Parameter specified as non-null is null: method com.example.stocksapp.db.entity.CompanyOverviewEntity.&lt;init&gt;, parameter symbol</string>
+<string name="no_network">Unable to resolve host "www.alphavantage.co": No address associated with hostname</string>
 </resources>

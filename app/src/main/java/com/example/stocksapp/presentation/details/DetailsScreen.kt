@@ -63,7 +63,9 @@ fun DetailsScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(MaterialTheme.colorScheme.surface)
-                        .padding(paddingValues)
+                        .padding(paddingValues),
+                    true,
+                    { viewModel.reloadCompanyOverview() }
                 )
             }
 
