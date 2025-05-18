@@ -47,3 +47,15 @@ com.example.stocksapp/
 ├── utils/                    # Utility helpers, formatters, extensions
 │
 └── MainActivity.kt           # App entry point and Hilt setup
+```
+
+### To Run on your System
+Add Api key in local properties as -
+API_KEY="key"
+
+### Screenshots
+![](assets/Stock App demo 2.jpg) | ![](assets/Stock App demo 5.jpg) 
+
+
+### Demo Video
+![](assets/Stock App demo 7.mp4)
