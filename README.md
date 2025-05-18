@@ -1,44 +1,49 @@
-# Stocks App - explore, search and view stocks detail.
+## Stocks App - Explore, Search and View Stock Details
 
-### TechStack
-**Language**	Kotlin
-**UI**	Jetpack Compose	
-**Architecture**	MVVM (Model-View-ViewModel)
-**Dependency Injection**	Hilt
-**Database**	Room
-**Network**	Retrofit + Gson	HTTP client
-**Charting**	candlestickschartkmm by yashctn88
+### 🛠️ Tech Stack
 
-### Folder Structure
+- **Language**: Kotlin  
+- **UI**: Jetpack Compose  
+- **Architecture**: MVVM (Model-View-ViewModel)  
+- **Dependency Injection**: Hilt  
+- **Database**: Room  
+- **Network**: Retrofit + Gson  
+- **Charting**: candlestickschartkmm by yashctn88  
+
+---
+
+### 📂 Folder Structure
+
+```text
 com.example.stocksapp/
 ├─ api/
-|    ├──responsedto/         # Api response data models
-|    ├── Api Service         # Api call methods
-|
-├── db/                     # API layer
-│   ├── dao/                # Dao for entities 
-│   ├── entity/             # Room db entities
-│   ├── MapConverter        # To convert graph map to string to store
-|   └── StocksDatabase.kt   # Room DB setup
+│   ├── responsedto/          # API response data models
+│   ├── ApiService.kt         # API call methods
 │
-├── di/                        # Hilt Modules
-│   ├── NetworkModule.kt       # Retrofit & API provider
-│   ├── DatabaseModule.kt      # Room & DAO providers
-│   └── RepositoryModule.kt    # Provide Repository Implementation
+├── db/                       # Local Room DB layer
+│   ├── dao/                  # DAO interfaces
+│   ├── entity/               # Room DB entities
+│   ├── MapConverter.kt       # Convert Map<String, Data> <=> String for graph
+│   └── StocksDatabase.kt     # Room database setup
 │
-├── presentation/         # UI Layer
-|   ├── common/            # Reusable Compose UI components
-|   ├── details/           # Stock detail screen with graph
-│   ├── explore/           # Explore screen: Top gainers/losers, search
-│   ├── search/            # Search screen and recent keyword handling
-│   ├── viewall/           # View All stocks/ searches screen
-│   ├── MainApp.kt         # Contains NavGraph.
-│   └── Screen.kt          # Sealed class containing all screens.
-|
-├── repository/              # Repository
-│   ├── Repository.kt        # Repository interface which contains abstract functions.
-│   └── RepositoryImpl.kt    # Implement methods of Repository class
-|
-├── utils/                # Utility helpers & extensions
+├── di/                       # Hilt modules
+│   ├── NetworkModule.kt      # Retrofit provider
+│   ├── DatabaseModule.kt     # Room and DAO provider
+│   └── RepositoryModule.kt   # Repository implementation binding
 │
-└── MainActivity.kt       # App entry point
+├── presentation/             # UI Layer (Jetpack Compose)
+│   ├── common/               # Reusable UI components
+│   ├── details/              # Stock detail screen with graph
+│   ├── explore/              # Explore screen (Top Gainers/Losers, etc.)
+│   ├── search/               # Search screen + recent searches
+│   ├── viewall/              # View all stocks/searches
+│   ├── MainApp.kt            # Contains NavGraph
+│   └── Screen.kt             # Sealed class defining screen routes
+│
+├── repository/               # Repository pattern
+│   ├── Repository.kt         # Interface with data functions
+│   └── RepositoryImpl.kt     # Implementation of Repository
+│
+├── utils/                    # Utility helpers, formatters, extensions
+│
+└── MainActivity.kt           # App entry point and Hilt setup
