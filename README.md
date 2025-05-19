@@ -55,4 +55,10 @@ API_KEY="key"
 
 ### Screenshots and demo
 Screenshots and demo video are added to asset folder of repository. Kindly go through it.
+Also demo video is attached in Readme file.
+
+
+https://github.com/user-attachments/assets/afa0c2f6-3ca2-4986-9d13-03d90148efcc
+
+
 
